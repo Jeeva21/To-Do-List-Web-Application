@@ -16,11 +16,20 @@ app.get("/", (req, res)=>{
     res.render("index.ejs", {data : todayTodo, date : d.getDate() , month : month[d.getMonth()] });
 })
 
-app.post("/", (req, res) =>{
-    console.log(req.body);
-    const personalTODO = req.body.personalTodo;
-    todayTodo.push(personalTODO);
+app.post("/personaltodo", (req, res) =>{
+    console.log("Personal Task Details",req.body);
+    todayTodo.push(req.body.personalTodo);
     res.render("index.ejs", {data : todayTodo, date : d.getDate() , month : month[d.getMonth()] });
+})
+
+app.get("/work", (req, res) =>{
+    res.render("work.ejs", {data: workTodo, date : d.getDate() , month : month[d.getMonth()]});
+})
+
+app.post("/worktodo", (req, res) =>{
+    console.log("Work Task Details", req.body);
+    workTodo.push(req.body.workTodo)
+    res.render("work.ejs", {data: workTodo, date : d.getDate() , month : month[d.getMonth()]});
 })
 
 app.listen(port, ()=>{
